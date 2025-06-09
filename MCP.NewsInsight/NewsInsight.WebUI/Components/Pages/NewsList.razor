@@ -1,0 +1,32 @@
+﻿@page "/news"
+@inject HttpClient Http
+@using NewsInsight.Shared.Models
+
+<h3>新闻列表</h3>
+
+@if (newsList == null)
+{
+    <p>加载中...</p>
+}
+else
+{
+    <ul>
+        @foreach (var news in newsList)
+        {
+            <li>
+                <b>@news.Headline</b> - <i>@news.Category</i>
+                <br />
+                <span style="color:gray">@news.Topic</span>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    List<News> newsList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        newsList = await Http.GetFromJsonAsync<List<News>>("api/news");
+    }
+}
