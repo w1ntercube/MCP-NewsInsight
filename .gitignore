@@ -37,7 +37,9 @@ wwwroot/**/*.min.css
 appsettings.Development.json
 appsettings.*.json.local
 secrets.json
-**appsettings.json
+
+# Ignore sensitive config
+MCP.NewsInsight/NewsInsight.Platform/appsettings.json
 
 
 ####################################
