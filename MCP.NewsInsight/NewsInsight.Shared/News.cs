@@ -22,10 +22,5 @@ namespace NewsInsight.Shared.Models
     [Column("news_body")]
     public string NewsBody { get; set; }
 
-    [Column("title_entity")]
-    public string TitleEntity { get; set; }
-
-    [Column("entity_content")]
-    public string EntityContent { get; set; }
     }
 }
