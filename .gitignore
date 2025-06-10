@@ -37,6 +37,8 @@ wwwroot/**/*.min.css
 appsettings.Development.json
 appsettings.*.json.local
 secrets.json
+**appsettings.json
+
 
 ####################################
 # C++/CLI / Native projects
@@ -77,3 +79,5 @@ Thumbs.db
 *.bak
 *.old
 *.orig
+
+helper.md
