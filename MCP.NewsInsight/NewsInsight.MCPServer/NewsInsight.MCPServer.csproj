@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NewsInsight.Shared\NewsInsight.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

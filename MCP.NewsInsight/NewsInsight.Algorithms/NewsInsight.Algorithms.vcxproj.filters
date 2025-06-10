@@ -24,12 +24,21 @@
     <ClInclude Include="NewsInsight.Algorithms.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Summarizer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NewsInsight.Algorithms.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Summarizer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

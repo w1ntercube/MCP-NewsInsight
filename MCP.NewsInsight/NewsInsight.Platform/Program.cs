@@ -1,24 +1,27 @@
-using NewsInsight.Platform.Data;
-using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using ModelContextProtocol.Server;
+using NewsInsight.Platform.McpTools;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = Host.CreateApplicationBuilder(args);
 
-// 配置数据库连接
-builder.Services.AddDbContext<NewsDbContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
-    ));
+// MCP 日志
+builder.Logging.AddConsole(consoleLogOptions =>
+{
+    consoleLogOptions.LogToStandardErrorThreshold = LogLevel.Information;
+});
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// 注册 MCP Server
+builder.Services
+    .AddMcpServer()
+    .WithStdioServerTransport()
+    .WithToolsFromAssembly();       // 自动扫描 [McpServerTool] 标记方法
 
-var app = builder.Build();
+var host = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
-app.MapControllers();
+// 启动 MCP Server（后台）
+_ = host.RunAsync();  // Run MCP server
 
-app.Run();
+// 启动 Web API 服务器
+await McpWebHost.RunWebAsync(args);  // Run ASP.NET Core API
