@@ -15,16 +15,18 @@ public static class NewsTools
 
     [McpServerTool(Name = "extract_keywords")]
     [Description("根据新闻ID，提取关键词")]
-    public static string ExtractKeywords(string newsId)
+    public static string ExtractKeywords(int newsId)
     {
-        return $"关键词：{newsId.Substring(0, 3)}, 示例关键词1, 示例关键词2";
+        return $"关键词：{newsId.ToString()}, 示例关键词1, 示例关键词2";
     }
 
     [McpServerTool(Name = "categorize_news")]
     [Description("返回新闻的分类")]
-    public static string Categorize(string newsId)
+    public static string Categorize(int newsId)
     {
-        if (newsId.Contains("100")) return "Sports";
+        if (newsId.ToString().Contains("100"))
+            return "Sports";
+
         return "Unknown";
     }
 }

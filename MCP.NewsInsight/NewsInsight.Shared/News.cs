@@ -3,24 +3,32 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NewsInsight.Shared.Models
 {
-    [Table("news")]
+    [Table("t_news")]
     public class News
     {
-    [Key]
-    [Column("news_id")]
-    public string NewsId { get; set; }
+        [Key]
+        [Column("news_id")]
+        public int NewsId { get; set; }
 
-    [Column("category")]
-    public string Category { get; set; }
+        [Column("headline")]
+        public string? Headline { get; set; }
 
-    [Column("topic")]
-    public string Topic { get; set; }
+        [Column("content")]
+        public string? Content { get; set; }
 
-    [Column("headline")]
-    public string Headline { get; set; }
+        [Column("category")]
+        public string Category { get; set; }
 
-    [Column("news_body")]
-    public string NewsBody { get; set; }
+        [Column("topic")]
+        public string Topic { get; set; }
 
+        [Column("total_browse_num")]
+        public uint TotalBrowseNum { get; set; }
+
+        [Column("total_browse_duration")]
+        public uint TotalBrowseDuration { get; set; }
+
+        [Column("released_time")]
+        public uint? ReleasedTime { get; set; } // 可为空
     }
 }

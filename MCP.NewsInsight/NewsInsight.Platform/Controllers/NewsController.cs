@@ -28,7 +28,7 @@ namespace NewsInsight.Platform.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<News>> GetById(string id)
+        public async Task<ActionResult<News>> GetById(int id)
         {
             var news = await _context.News.FindAsync(id);
             if (news == null)
@@ -39,14 +39,14 @@ namespace NewsInsight.Platform.Controllers
 
         // 示例：模拟调用 MCP 工具（现在使用直接方法）
         [HttpGet("summarize/{id}")]
-        public async Task<ActionResult<object>> SummarizeNews(string id)
+        public async Task<ActionResult<object>> SummarizeNews(int id)
         {
             var news = await _context.News.FirstOrDefaultAsync(n => n.NewsId == id);
             if (news == null)
                 return NotFound($"未找到新闻 ID：{id}");
 
             // 调用摘要方法（未来可换成 DLL 封装）
-            var summary = NewsSummarizer.SummarizeNews(news.NewsBody);
+            var summary = NewsSummarizer.SummarizeNews(news.Content);
 
             return Ok(new
             {
@@ -57,9 +57,8 @@ namespace NewsInsight.Platform.Controllers
         }
 
         [HttpGet("keywords/{id}")]
-        public async Task<ActionResult<string>> GetKeywords(string id)
+        public async Task<ActionResult<string>> GetKeywords(int id)
         {
-            // 可直接使用工具类调用，后期可封装标准 MCP 请求
             return Ok(NewsTools.ExtractKeywords(id));
         }
 
@@ -68,7 +67,7 @@ namespace NewsInsight.Platform.Controllers
         public async Task<ActionResult<IEnumerable<string>>> SearchNews([FromQuery] string keyword)
         {
             var results = await _context.News
-                .Where(n => n.Headline.Contains(keyword) || n.NewsBody.Contains(keyword))
+                .Where(n => n.Headline.Contains(keyword) || n.Content.Contains(keyword))
                 .Select(n => n.Headline)
                 .Take(10)
                 .ToListAsync();
